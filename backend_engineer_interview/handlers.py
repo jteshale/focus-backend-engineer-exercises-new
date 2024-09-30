@@ -45,7 +45,17 @@ class EmployeeResponse(PydanticBaseModel):
 
 
 def get_employee(id: int) -> None:
-    # ANSWER
+    employee = db_session.query(Employee).filter(Employee.id == id).first()
+
+    if employee is None:
+        return 'Employee not found', 404
+
+    employee = {
+        'id': employee.id,
+        'first_name': employee.first_name,
+        'last_name': employee.last_name,
+        'date_of_birth': employee.date_of_birth.strftime('%Y-%m-%d')
+    }
     pass
 
 
